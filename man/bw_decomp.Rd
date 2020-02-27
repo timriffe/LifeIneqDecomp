@@ -10,8 +10,8 @@ bw_decomp(
   dx,
   lx,
   ex,
-  p,
-  measure = c("Theil", "edag", "variance", "MLD")
+  prop,
+  method = c("Theil", "edag", "variance", "MLD", "Gini")
 )
 }
 \arguments{
@@ -24,6 +24,8 @@ bw_decomp(
 \item{lx}{numeric. vector of the lifetable survivorship.}
 
 \item{ex}{numeric. vector of remaining life expectancy.}
+
+\item{method}{character one of \code{"Theil", "edag","variance","MLD","Gini"}}
 }
 \description{
 Partition a lifespan inequality index into additive components of between-group inequality and within-group inequality. Presently implemented for Theil's index, e-edagger, variance, mean log deviation, and the gini coeficient.
