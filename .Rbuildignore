@@ -1,3 +1,4 @@
 build.R
 ^.*\.Rproj$
 .gitignore
+^\.Rproj\.user$

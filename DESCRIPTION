@@ -14,3 +14,6 @@ Depends:
     R (>= 3.6)
 BugReports: https://github.com/timriffe/LifeIneqDecomp/issues
 Encoding: UTF-8
+Remotes: timriffe/LifeIneq
+Imports: 
+    LifeIneq
