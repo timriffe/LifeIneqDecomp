@@ -11,21 +11,23 @@ bw_decomp(
   lx,
   ex,
   prop,
-  method = c("Theil", "edag", "variance", "MLD", "Gini")
+  method = c("theil", "edag", "var", "mld", "gini")
 )
 }
 \arguments{
-\item{age}{numeric. vector of lower age bounds.}
+\item{age}{numeric vector of lower age bounds.}
 
-\item{ax}{numeric. vector of the average time spent in the age interval of those dying within the interval.}
+\item{ax}{numeric matrix of the average time spent in the age interval of those dying within the interval with age in rows and subgroups in columns.}
 
-\item{dx}{numeric. vector of the lifetable death distribution.}
+\item{dx}{numeric matrix of the lifetable death distribution with age in rows and subgroups in columns.}
 
-\item{lx}{numeric. vector of the lifetable survivorship.}
+\item{lx}{numeric natrix of the lifetable survivorship with age in rows and subgroups in columns.}
 
-\item{ex}{numeric. vector of remaining life expectancy.}
+\item{ex}{numeric matrix of remaining life expectancy with age in rows and subgroups in columns.}
 
-\item{method}{character one of \code{"Theil", "edag","variance","MLD","Gini"}}
+\item{prop}{numeric vector of starting fractions for each of the subgroups.}
+
+\item{method}{character one of \code{"theil", "edag","var","mld","gini"}}
 }
 \description{
 Partition a lifespan inequality index into additive components of between-group inequality and within-group inequality. Presently implemented for Theil's index, e-edagger, variance, mean log deviation, and the gini coeficient.

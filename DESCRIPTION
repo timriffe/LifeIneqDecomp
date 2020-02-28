@@ -1,12 +1,12 @@
 Package: LifeIneqDecomp
 Type: Package
 Title: Between-within decomposition lifespan variation indices 
-Version: 00.01.01
-Date: 2020-02-27 
+Version: 00.01.02
+Date: 2020-02-28 
 Authors@R: c(
    person("Cristian", "Dudel", role = c("aut"), email = "dudel@demogr.mpg.de", comment = c(ORCID = "0000-0002-2985-6684")),
    person("Tim", "Riffe", role = c("aut","cre"), email = "tim.riffe@gmail.com", comment = c(ORCID = "0000-0002-2673-4622")))
-Description: Decompose selected indices of lifespan variation into between and within components
+Description: Decompose selected indices of lifespan variation into between and within components.
 LazyLoad: yes
 LazyData: true
 RoxygenNote: 7.0.2
@@ -17,3 +17,4 @@ Encoding: UTF-8
 Remotes: timriffe/LifeIneq
 Imports: 
     LifeIneq
+License: GPL-3

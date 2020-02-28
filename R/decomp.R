@@ -2,16 +2,17 @@
 #' @title between-within decomposition of lifespan inequality measures
 #' @description Partition a lifespan inequality index into additive components of between-group inequality and within-group inequality. Presently implemented for Theil's index, e-edagger, variance, mean log deviation, and the gini coeficient. 
 #' 
-#' @param age numeric. vector of lower age bounds.
-#' @param dx numeric. vector of the lifetable death distribution.
-#' @param lx numeric. vector of the lifetable survivorship.
-#' @param ex numeric. vector of remaining life expectancy.
-#' @param ax numeric. vector of the average time spent in the age interval of those dying within the interval.
-#' @param method character one of \code{"Theil", "edag","variance","MLD","Gini"}
+#' @param age numeric vector of lower age bounds.
+#' @param dx numeric matrix of the lifetable death distribution with age in rows and subgroups in columns.
+#' @param lx numeric natrix of the lifetable survivorship with age in rows and subgroups in columns.
+#' @param ex numeric matrix of remaining life expectancy with age in rows and subgroups in columns.
+#' @param ax numeric matrix of the average time spent in the age interval of those dying within the interval with age in rows and subgroups in columns.
+#' @param prop numeric vector of starting fractions for each of the subgroups.
+#' @param method character one of \code{"theil", "edag","var","mld","gini"}
 #' @import LifeIneq
 
 bw_decomp <- function(age, ax, dx, lx, ex, prop,
-                      method = c("Theil", "edag","variance","MLD","Gini")){
+                      method = c("theil", "edag","var","mld","gini")){
   
   # check dims
   K <- length(prop)
@@ -78,11 +79,11 @@ bw_decomp <- function(age, ax, dx, lx, ex, prop,
    }
 
    # within weighting depends on the measure
-   if (method %in% c("edag","variance","MLD")){ 
+   if (method %in% c("edag","var","mld")){ 
      weights <- prop
    }
    
-   if (method %in% c("Theil","Gini")){
+   if (method %in% c("theil","gini")){
      weights <- prop * ex[1, ] / pex[1]
    }
    

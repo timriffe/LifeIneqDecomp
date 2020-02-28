@@ -19,8 +19,14 @@ ex <- acast(LT[LT$Year %in% yrs, ], Age~Year,value.var = "ex")
 
 p<- c(4,7,20)
 args(bw_decomp)
-bw_decomp(age=age,ax=ax,dx=dx,lx=lx,ex=ex,p=p, method = "variance")
-bw_decomp(age=age,ax=ax,dx=dx,lx=lx,ex=ex,p=p, method = "Gini")
-bw_decomp(age=age,ax=ax,dx=dx,lx=lx,ex=ex,p=p, method = "Theil")
-bw_decomp(age=age,ax=ax,dx=dx,lx=lx,ex=ex,p=p, method = "MLD")
+bw_decomp(age=age,ax=ax,dx=dx,lx=lx,ex=ex,p=p, method = "var")
+bw_decomp(age=age,ax=ax,dx=dx,lx=lx,ex=ex,p=p, method = "gini")
+bw_decomp(age=age,ax=ax,dx=dx,lx=lx,ex=ex,p=p, method = "theil")
+bw_decomp(age=age,ax=ax,dx=dx,lx=lx,ex=ex,p=p, method = "mad")
 bw_decomp(age=age,ax=ax,dx=dx,lx=lx,ex=ex,p=p, method = "edag")
+
+
+
+
+
+
