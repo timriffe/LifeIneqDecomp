@@ -1,4 +1,3 @@
-
 #' @title between-within decomposition of lifespan inequality measures
 #' @description Partition a lifespan inequality index into additive components of between-group inequality and within-group inequality. Presently implemented for Theil's index, e-edagger, variance, mean log deviation, and the gini coeficient. 
 #' 
@@ -14,13 +13,15 @@
 bw_decomp <- function(age, ax, dx, lx, ex, prop,
                       method = c("theil", "edag","var","mld","gini")){
   
-  # check dims
+  # check dimensions: number of groups
   K <- length(prop)
   stopifnot(all.equal(ncol(ax),
             ncol(dx), 
             ncol(lx), 
             ncol(ex), 
             K))
+  
+  # check dimensions: age groups
   N <- length(age)
   stopifnot(all.equal(nrow(ax),
                       nrow(dx), 
@@ -54,12 +55,8 @@ bw_decomp <- function(age, ax, dx, lx, ex, prop,
   pax  <- rowSums(ax * pdxc)
   # pop avg ex is lx-weighted ex
   pex  <- rowSums(ex * plxc)
-   
 
- 
-
-  # calculate inequality index
-  
+  # calculate total inequality index
   tot <- ineq(age = age, 
               dx = pdx, 
               lx = plx, 
@@ -67,7 +64,7 @@ bw_decomp <- function(age, ax, dx, lx, ex, prop,
               ex = pex,
               method = method)[1]
   
-  # again for each of the k subgroups and the total
+  # again for each of the k subgroups 
   indices <- rep(0, K)
   for (k in 1:K){
     indices[k] <- ineq(age = age, 
@@ -87,10 +84,10 @@ bw_decomp <- function(age, ax, dx, lx, ex, prop,
      weights <- prop * ex[1, ] / pex[1]
    }
    
-   # Combine
+   # combine
    W <- sum(weights * indices)
    
-   # Between
+   # between part as residual
    B <- tot - W
    
    # gather minimal goods to return
