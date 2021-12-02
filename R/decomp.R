@@ -11,7 +11,7 @@
 #' @import LifeIneq
 #' @export
 
-bw_decomp <- function(age, ax, dx, lx, ex, prop,
+bw_decomp <- function(age, ax, dx, lx, ex, prop = rep(1/ncol(dx), ncol(dx)),
                       method = c("theil", "edag","var","mld","gini")){
   
   # Turn data frames into matrices
