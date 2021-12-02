@@ -38,7 +38,7 @@ bw_decomp <- function(age, ax, dx, lx, ex, prop,
   
   # validate method selection
   method <- match.arg(method)
-  
+
   # 1) standardize inputs
   prop <- prop / sum(prop)
   lx   <- lx %*% diag(1 / lx[1, ])
@@ -64,24 +64,26 @@ bw_decomp <- function(age, ax, dx, lx, ex, prop,
   pex  <- rowSums(ex * plxc)
 
   # calculate total inequality index
-  tot <- ineq(age = age, 
-              dx = pdx, 
-              lx = plx, 
-              ax = pax, 
-              ex = pex,
-              method = method)[1]
+  args_i <- list(age = age, 
+                 dx = pdx,
+                 lx = plx,
+                 ax = pax,
+                 ex = pex, 
+                 method = method)
+  tot <- suppressMessages(do.call("ineq", args = args_i, quote = TRUE)[1])
+ 
 
   # again for each of the k subgroups 
   indices <- rep(0, K)
   for (k in 1:K){
-    
-    indices[k] <- ineq(age = age, 
-                       dx = dx[, k], 
-                       lx = lx[, k], 
-                       ax = ax[, k], 
-                       ex = ex[, k],
-                       method = method)[1]
- 
+    args_i <- list(age = age, 
+                   dx = dx[, k],
+                   lx = lx[, k],
+                   ax = ax[, k],
+                   ex = ex[, k], 
+                   method = method)
+    indices[k] <- suppressMessages(do.call("ineq", args = args_i, quote = TRUE)[1])
+
    }
 
    # within weighting depends on the measure

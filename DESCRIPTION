@@ -1,7 +1,7 @@
 Package: LifeIneqDecomp
 Type: Package
 Title: Between-within decomposition lifespan variation indices 
-Version: 00.01.03
+Version: 00.01.04
 Date: 2021-12-02 
 Authors@R: c(
    person("Cristian", "Dudel", role = c("aut"), email = "dudel@demogr.mpg.de", comment = c(ORCID = "0000-0002-2985-6684")),
@@ -16,5 +16,5 @@ BugReports: https://github.com/timriffe/LifeIneqDecomp/issues
 Encoding: UTF-8
 Remotes: timriffe/LifeIneq
 Imports: 
-    LifeIneq  (>= 00.03.00)
+    LifeIneq  (>= 0.03.01)
 License: GPL-3
