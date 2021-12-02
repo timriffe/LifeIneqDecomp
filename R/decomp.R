@@ -9,6 +9,7 @@
 #' @param prop numeric vector of starting fractions for each of the subgroups.
 #' @param method character one of \code{"theil", "edag","var","mld","gini"}
 #' @import LifeIneq
+#' @export
 
 bw_decomp <- function(age, ax, dx, lx, ex, prop,
                       method = c("theil", "edag","var","mld","gini")){

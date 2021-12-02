@@ -21,7 +21,7 @@ bw_decomp(
 
 \item{dx}{numeric matrix of the lifetable death distribution with age in rows and subgroups in columns.}
 
-\item{lx}{numeric natrix of the lifetable survivorship with age in rows and subgroups in columns.}
+\item{lx}{numeric matrix of the lifetable survivorship with age in rows and subgroups in columns.}
 
 \item{ex}{numeric matrix of remaining life expectancy with age in rows and subgroups in columns.}
 
