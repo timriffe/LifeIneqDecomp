@@ -6,12 +6,19 @@
 #' @param lx numeric matrix of the lifetable survivorship with age in rows and subgroups in columns.
 #' @param ex numeric matrix of remaining life expectancy with age in rows and subgroups in columns.
 #' @param ax numeric matrix of the average time spent in the age interval of those dying within the interval with age in rows and subgroups in columns.
+#' @param distribution_type \code{"aad"} for age-at death, \code{"rl"} for remaining life
 #' @param prop numeric vector of starting fractions for each of the subgroups.
 #' @param method character one of \code{"theil", "edag","var","mld","gini"}
 #' @import LifeIneq
 #' @export
 
-bw_decomp <- function(age, ax, dx, lx, ex, prop = rep(1/ncol(dx), ncol(dx)),
+bw_decomp <- function(age, 
+                      ax, 
+                      dx, 
+                      lx, 
+                      ex, 
+                      distribution_type = "aad",
+                      prop = rep(1/ncol(dx), ncol(dx)),
                       method = c("theil", "edag","var","mld","gini")){
   
   # Turn data frames into matrices
@@ -70,7 +77,9 @@ bw_decomp <- function(age, ax, dx, lx, ex, prop = rep(1/ncol(dx), ncol(dx)),
                  lx = plx,
                  ax = pax,
                  ex = pex, 
-                 method = method)
+                 distribution_type = distribution_type,
+                 method = method,
+                 check = FALSE)
   tot <- suppressMessages(do.call("ineq", args = args_i, quote = TRUE)[1])
  
 
