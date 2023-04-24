@@ -8,18 +8,21 @@
 #' @param ax numeric matrix of the average time spent in the age interval of those dying within the interval with age in rows and subgroups in columns.
 #' @param distribution_type \code{"aad"} for age-at death, \code{"rl"} for remaining life
 #' @param prop numeric vector of starting fractions for each of the subgroups.
-#' @param method character one of \code{"theil", "edag","var","mld","gini"}
+#' @param method character one of \code{"theil", "edag","var","mld","gini","mad","aid","H"}
 #' @import LifeIneq
 #' @export
+
+
 
 bw_decomp <- function(age, 
                       ax, 
                       dx, 
                       lx, 
-                      ex, 
+                      ex,  
                       distribution_type = "aad",
                       prop = rep(1/ncol(dx), ncol(dx)),
-                      method = c("theil", "edag","var","mld","gini")){
+                      method = c("theil", "edag","var","mld","gini","mad","aid","H")){
+
   
   # Turn data frames into matrices
   if(is.data.frame(age)) age <- as.numeric(age[,1])
@@ -70,6 +73,11 @@ bw_decomp <- function(age,
   pax  <- rowSums(ax * pdxc)
   # pop avg ex is lx-weighted ex
   pex  <- rowSums(ex * plxc)
+  
+  # If method %in% c("H","aid") then use edag or gini, rescale later
+  method_lower <- method
+  if(method=="H")   method_lower <- "edag"
+  if(method=="aid") method_lower <- "gini"
 
   # calculate total inequality index
   args_i <- list(age = age, 
@@ -78,8 +86,8 @@ bw_decomp <- function(age,
                  ax = pax,
                  ex = pex, 
                  distribution_type = distribution_type,
-                 method = method,
-                 check = FALSE)
+                 check = FALSE,
+                 method = method_lower)
   tot <- suppressMessages(do.call("ineq", args = args_i, quote = TRUE)[1])
  
 
@@ -91,26 +99,34 @@ bw_decomp <- function(age,
                    lx = lx[, k],
                    ax = ax[, k],
                    ex = ex[, k], 
-                   method = method)
+                   method = method_lower)
     indices[k] <- suppressMessages(do.call("ineq", args = args_i, quote = TRUE)[1])
 
    }
 
    # within weighting depends on the measure
-   if (method %in% c("edag","var","mld")){ 
+   if (method_lower %in% c("edag","var","mld","mad")){ 
      weights <- prop
    }
    
-   if (method %in% c("theil","gini")){
+   if (method_lower %in% c("theil","gini")){
      weights <- prop * ex[1, ] / pex[1]
    }
    
    # combine
    W <- sum(weights * indices)
    
+   # Adjust if H or aid
+   if(method%in%c("H","aid")) {
+     rescale <- sum(ex[1,]*prop)
+     if(method=="H") rescale <- 1/rescale
+     W <- W*rescale
+     tot <- tot*rescale
+   }
+
    # between part as residual
    B <- tot - W
-   
+
    # gather minimal goods to return
    out <- list(method = method,
                group_ind = indices,
