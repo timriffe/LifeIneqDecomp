@@ -10,8 +10,9 @@ bw_decomp(
   dx,
   lx,
   ex,
-  prop,
-  method = c("theil", "edag", "var", "mld", "gini")
+  distribution_type = "aad",
+  prop = rep(1/ncol(dx), ncol(dx)),
+  method = c("theil", "edag", "var", "mld", "gini", "mad", "aid", "H")
 )
 }
 \arguments{
@@ -25,9 +26,11 @@ bw_decomp(
 
 \item{ex}{numeric matrix of remaining life expectancy with age in rows and subgroups in columns.}
 
+\item{distribution_type}{\code{"aad"} for age-at death, \code{"rl"} for remaining life}
+
 \item{prop}{numeric vector of starting fractions for each of the subgroups.}
 
-\item{method}{character one of \code{"theil", "edag","var","mld","gini"}}
+\item{method}{character one of \code{"theil", "edag","var","mld","gini","mad","aid","H"}}
 }
 \description{
 Partition a lifespan inequality index into additive components of between-group inequality and within-group inequality. Presently implemented for Theil's index, e-edagger, variance, mean log deviation, and the gini coeficient.

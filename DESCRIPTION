@@ -9,7 +9,7 @@ Authors@R: c(
 Description: Decompose selected indices of lifespan variation into between and within components.
 LazyLoad: yes
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 Depends:
     R (>= 3.6)
 BugReports: https://github.com/timriffe/LifeIneqDecomp/issues
