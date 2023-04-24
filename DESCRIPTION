@@ -1,7 +1,7 @@
 Package: LifeIneqDecomp
 Type: Package
 Title: Between-within decomposition lifespan variation indices 
-Version: 00.01.07
+Version: 00.01.08
 Date: 2023-04-24 
 Authors@R: c(
    person("Cristian", "Dudel", role = c("aut"), email = "dudel@demogr.mpg.de", comment = c(ORCID = "0000-0002-2985-6684")),
