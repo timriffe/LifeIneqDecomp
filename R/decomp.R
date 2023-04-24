@@ -99,6 +99,7 @@ bw_decomp <- function(age,
                    lx = lx[, k],
                    ax = ax[, k],
                    ex = ex[, k], 
+                   distribution_type = distribution_type,
                    method = method_lower)
     indices[k] <- suppressMessages(do.call("ineq", args = args_i, quote = TRUE)[1])
 
