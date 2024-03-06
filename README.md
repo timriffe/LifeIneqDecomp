@@ -1,8 +1,12 @@
+# This package is now merged into the LifeIneq package, here: https://github.com/timriffe/LifeIneq
+
+You can still separately install and use from here, but it will no longer be maintained. Old readme follows:
+
 # Additive decompositions of lifespan inequality measures: LifeIneqDecomp
 
 ## Contact
 
-Tim Riffe, riffe@demogr.mpg.de
+Tim Riffe, tim.riffe@ehu.eus
 
 Christian Dudel, dudel@demogr.mpg.de
 
