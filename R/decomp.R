@@ -1,5 +1,11 @@
 #' @title between-within decomposition of lifespan inequality measures
-#' @description Partition a lifespan inequality index into additive components of between-group inequality and within-group inequality. Presently implemented for Theil's index, e-edagger, variance, mean log deviation, and the gini coeficient. 
+
+#' @description 
+#' Partition a lifespan inequality index into additive components 
+#' of between-group inequality and within-group inequality. Presently 
+#' implemented for Theil's index, e-dagger, variance, mean log deviation, 
+#' the gini coeficient, mean absolute deviatation, the absolute inter-individual 
+#' difference, and life table entropy (H). 
 #' 
 #' @param age numeric vector of lower age bounds.
 #' @param dx numeric matrix of the lifetable death distribution with age in rows and subgroups in columns.
@@ -11,8 +17,6 @@
 #' @param method character one of \code{"theil", "edag","var","mld","gini","mad","aid","H"}
 #' @import LifeIneq
 #' @export
-
-
 
 bw_decomp <- function(age, 
                       ax, 
@@ -109,10 +113,20 @@ bw_decomp <- function(age,
    if (method_lower %in% c("edag","var","mld","mad")){ 
      weights <- prop
    }
+  
+  if(method_lower=="aid") {
+    weights <- prop * lx[1,]^2 / plx[1]^2
+  }
    
-   if (method_lower %in% c("theil","gini")){
-     weights <- prop * ex[1, ] / pex[1]
+   if (method_lower =="theil" ){
+     if(distribution_type=="aad") weights <- prop * (ex[1, ]+min(age)) / (pex[1]+min(age))
+     if(distribution_type=="rl") weights <- prop * ex[1, ] / pex[1]
    }
+  
+  if (method_lower =="gini"){
+    if(distribution_type=="aad") weights <- prop * (lx[1,]^2 * (ex[1, ]+min(age))) / (plx[1]^2*(pex[1]+min(age)))
+    if(distribution_type=="rl") weights <- prop * (lx[1,]^2 * ex[1, ]) / (plx[1]^2*pex[1])
+  }
    
    # combine
    W <- sum(weights * indices)
